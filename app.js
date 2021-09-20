@@ -19,6 +19,17 @@ downBtn.addEventListener('click', () => {
     changeSlide('down');
 });
 
+document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowUp') { changeSlide('up') }
+    else if (event.key === 'ArrowDown') { changeSlide('down') }
+});
+
+document.addEventListener('wheel', event => {
+    let delta = event.deltaY;
+    if (delta < 0) { changeSlide('up') }
+    else { changeSlide('down') }
+});
+
 function changeSlide(direction) {
     if (direction === 'up') {
         activeSlideIndex++;
@@ -35,6 +46,7 @@ function changeSlide(direction) {
     const height = container.clientHeight;
 
     mainSlide.style.transform = `translateY(-${activeSlideIndex * height}px)`
+    console.log(activeSlideIndex);
 
     sidebar.style.transform = `translateY(${activeSlideIndex * height}px)`
 }
