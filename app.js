@@ -1,6 +1,8 @@
 const startBtn = document.querySelector('#start');
 const screens = document.querySelectorAll('.screen');
 const timeList = document.querySelector('#time-list');
+const colors = ['#316B83', '#FF7878', '#8CA1A5', '#D5BFBF', 
+'#BFD8B8', '#E7EAB5'];
 let time = 0;
 let score = 0;
 const timeEl = document.querySelector('#time');
@@ -38,15 +40,15 @@ function decreaseTime() {
         finishGame();
     } else {
         let current = --time;
-        if (current < 10) {
-            current = `0${current}`;
-        }
+        // if (current < 10) {
+        //     current = `0${current}`;
+        // }
         setTime(current);
     }
 }
 
 function setTime(value) {
-    timeEl.innerHTML = `00:${value}`;
+    timeEl.innerHTML = `00:${value>=10?value:'0'+value}`;
 }
 
 function finishGame() {
@@ -66,10 +68,21 @@ function createRandomCircle() {
     circle.style.width = `${size}px`;
     circle.style.height = `${size}px`;
     circle.style.top = `${y}px`;
-    circle.style.left = `${x}px`
+    circle.style.left = `${x}px`;
+    setColor(circle);
     board.append(circle);
 }
 
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (max - min) + min);
+}
+
+function getRandomColor() {
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function setColor(element) {
+    const color = getRandomColor();
+    element.style.backgroundColor = color;
+    // element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`;
 }
